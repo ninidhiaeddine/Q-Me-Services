@@ -1,0 +1,14 @@
+{
+  "name": "q-me-services",
+  "version": "1.0.0",
+  "description": "REST API for Q-Me Web App",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dhia Eddine Nini",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
