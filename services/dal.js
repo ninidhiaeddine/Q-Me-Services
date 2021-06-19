@@ -38,7 +38,7 @@ function getGuests() {
 
 function getGuestById(id) {
   return new Promise((resolve, reject) => {
-    let guest = {};
+    let guest = new Guest();
     let sql = `SELECT * FROM Guest WHERE PK_Guest=${id};`;
 
     request = new Request(sql, (err, rowCount, rows) => {
@@ -61,10 +61,70 @@ function getGuestById(id) {
   });
 }
 
+function updateGuestById(id, newName, newPhoneNumber) {
+  return new Promise((resolve, reject) => {
+    // check if guest exists:
+    getGuestById(id)
+      .then((targetGuest) => {
+        // update guest:
+        let sql = `UPDATE Guest
+        SET Name='${newName}', PhoneNumber='${newPhoneNumber}' 
+        WHERE PK_Guest=${id};`;
+
+        request = new Request(sql, (err, rowCount, rows) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(`Guest with Id=${id} has been updated successfully!`);
+          }
+        });
+
+        db.execSql(request);
+      })
+      .catch((err) => reject(err));
+  });
+}
+
+function deleteGuests() {
+  return new Promise((resolve, reject) => {
+    let sql = "DELETE FROM Guest";
+
+    request = new Request(sql, (err, rowCount, rows) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve("All Guests have been deleted successfully!");
+      }
+    });
+    db.execSql(request);
+  });
+}
+
+function deleteGuestById(id) {
+  return new Promise((resolve, reject) => {
+    // check if guest exists:
+    getGuestById(id)
+      .then((targetGuest) => {
+        let sql = `DELETE FROM Guest WHERE PK_Guest=${id}`;
+
+        request = new Request(sql, (err, rowCount, rows) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(`Guest with Id=${id} has been deleted successfully!`);
+          }
+        });
+
+        db.execSql(request);
+      })
+      .catch((err) => reject(err));
+  });
+}
+
 module.exports = {
   getGuests,
   getGuestById,
-  updateGuest,
+  updateGuestById,
   deleteGuests,
-  deleteGuests,
+  deleteGuestById,
 };
