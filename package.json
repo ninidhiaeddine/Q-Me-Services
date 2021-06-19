@@ -2,9 +2,9 @@
   "name": "q-me-services",
   "version": "1.0.0",
   "description": "REST API for Q-Me Web App",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon app.js"
   },
   "author": "Dhia Eddine Nini",
   "license": "MIT",
